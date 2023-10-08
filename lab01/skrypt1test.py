@@ -2,8 +2,7 @@ import unittest
 from unittest.mock import patch
 import sys
 from io import StringIO
-from skrypt1 import display
-from skrypt1 import run
+from skrypt1 import display,run,descriptions
 
 class TestDisplayFunction(unittest.TestCase):
 
@@ -34,9 +33,8 @@ class TestDisplayFunction(unittest.TestCase):
 class TestRunFunction(unittest.TestCase):
 
     @patch('sys.stdout', new_callable=StringIO)
-    def test_run_with_valid_moves(self, mock_stdout):
-        descriptions = {'f': "Zwierzak idzie do przodu", 'b':"Zwierzak idzie do tyłu", 'l':"Zwierzak skręca w lewo", 'r':"Zwierzak skręca w prawo"}
-        moves = ['f', 'l', 'b', 'r']
+    def test_run(self, mock_stdout):
+        moves = ['f', 'l', 'x', '1', 'b', 'r']
         
         expected_output = "Zwierzak idzie do przodu\nZwierzak skręca w lewo\nZwierzak idzie do tyłu\nZwierzak skręca w prawo\n"
         
