@@ -26,6 +26,9 @@ if __name__ == "__main__":
             for item in data:
                 print(f"{item['nazwa']}: {item['liczba']}")
         elif sys.argv[i].isalpha() and i + 1 < len(sys.argv) and sys.argv[i + 1].isnumeric():
+            if sys.argv[i+1]<0:
+                print("nie mozna sprzedac ujemnej wartosci.")
+                break
             rodzaj = sys.argv[i]
             ilosc_sprzedana = int(sys.argv[i + 1])
             sell_wares(data, rodzaj, ilosc_sprzedana)
