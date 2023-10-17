@@ -2,8 +2,6 @@
 
 import argparse
 import operations
-import cut
-import grep
 import sys
 
 def main():
@@ -49,6 +47,7 @@ def process_skrypt1(text):
             print(result)
 
 def process_cut(args):
+    import cut
     input_text = sys.stdin.read()
     lines = input_text.split('\n')
     for line in lines:
@@ -56,6 +55,7 @@ def process_cut(args):
         print(result)
 
 def process_grep(args):
+    import grep
     input_text = sys.stdin.read()
     result = grep.grep(args.pattern, input_text, args.ignore_case, args.whole_words)
     print(result)

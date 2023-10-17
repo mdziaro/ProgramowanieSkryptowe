@@ -1,6 +1,4 @@
 import sys
-import cut
-import grep
 
 def main():
     if len(sys.argv) < 2:
@@ -10,6 +8,7 @@ def main():
     command = sys.argv[1]
 
     if command == "cut":
+        import cut
         if len(sys.argv) != 6 or sys.argv[2] != "-d" or sys.argv[4] != "-f":
             print("Użycie: ./skrypt2.py cut -d <delimiter> -f <field>")
             return
@@ -24,6 +23,7 @@ def main():
             print(result)
 
     elif command == 'grep':
+        import grep
         pattern = sys.argv[-1]
         input_text = sys.stdin.read()
         ignore_case = '-i' in sys.argv

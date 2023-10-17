@@ -1,4 +1,5 @@
 import sys
+import re
 
 def grep(pattern, input_text, ignore_case=False, whole_word=False):
     lines = input_text.split('\n')
@@ -7,7 +8,7 @@ def grep(pattern, input_text, ignore_case=False, whole_word=False):
     for line in lines:
         line_to_compare = line if not ignore_case else line.lower()
 
-        words = line.split()
+        words = re.split(r'[/ ]', line)
 
         for word in words:
             word_to_compare = word if not ignore_case else word.lower()
