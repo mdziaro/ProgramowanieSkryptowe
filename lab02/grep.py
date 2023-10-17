@@ -19,5 +19,3 @@ def grep(pattern, input_text, ignore_case=False, whole_word=False):
                 if pattern in word:
                     result.append(line)
                     break
-
-    return '\n'.join(result)
