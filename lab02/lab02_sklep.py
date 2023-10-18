@@ -13,9 +13,10 @@ def load_data(file_name):
 
 def display_warehouse(data):
     lines = data.strip().split('\n')
-    print(lines[0])  # Nagłówek
-    print(lines[1])  # Linia podziału
-    for line in lines[2:]:
+    print("--------------+------------ ")
+    print(lines[0])  # Nazwa | Ilosc
+    print("--------------+------------ ")
+    for line in lines[1:]:
         print(line)
 
 
@@ -26,10 +27,14 @@ def display_customer_purchases(data, customers):
         if not lines:
             continue
         lines = lines.strip().split('\n')
-        print(lines[0])  # Nagłówek
-        print(lines[1])  # Linia podziału
+        print("--------------+------------ ")
+        print(lines[0])  # Klient
+        print("--------------+------------ ")
+        print(lines[1])  # Nazwa | Ilosc
         for line in lines[2:]:
             print(line)
+        print("\n")
+
 
 
 def process_sell_command(data, sell_command):
