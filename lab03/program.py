@@ -39,10 +39,13 @@ if __name__ == "__main__":
     move_args = OptionsParser.parse(args)
     
     for i, arg in enumerate(args):
-        move = move_args[i]
-        if show_index == "True":
-            print(f"{i + 1}: {arg}")
-        print(f"{descriptions[move]}")
+        if i < len(move_args):
+            move = move_args[i]
+            if move in MoveDirection:  # Sprawdź, czy kierunek istnieje w enumie
+                if show_index == "True":
+                    print(f"{i + 1}: {arg}")
+                print(f"{descriptions[move]}")
+
     
     print("System zakończył działanie.")
     exit(0)
