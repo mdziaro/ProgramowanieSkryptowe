@@ -1,0 +1,4 @@
+Product:Komputer,10
+Product:Laptop,20
+Customer:Jan_Kowalski
+Customer:Anna_Nowak
