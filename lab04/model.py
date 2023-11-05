@@ -12,8 +12,13 @@ class Vector2d:
     def __sub__(self, other: 'Vector2d') -> 'Vector2d':
         return Vector2d(self.x - other.x, self.y - other.y)
 
-    def __eq__(self, other: 'Vector2d') -> bool:
-        return self.x == other.x and self.y == other.y
+    def __eq__(self, other):
+        if isinstance(other, Vector2d):
+            return self.x == other.x and self.y == other.y
+        return False
+
+    def __hash__(self):
+        return hash((self.x, self.y))
 
 class MoveDirection(Enum):
     FORWARD = "f"
