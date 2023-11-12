@@ -26,6 +26,5 @@ class Animal:
             if validator.canMoveTo(new_position):
                 self.position = new_position
 
-    
     def __repr__(self) -> str:
         return str(self.orientation)

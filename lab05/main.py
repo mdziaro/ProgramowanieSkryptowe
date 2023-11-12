@@ -3,6 +3,7 @@ import sys
 from model.core import Vector2d, MoveDirection
 from model.interface import IWorldMap
 from model.map import RectangularMap as MyRectangularMap
+from model.map import InfiniteMap as MyInfiniteMap
 from controller import Simulation, OptionsParser
 
 
@@ -14,7 +15,8 @@ positions: list[Vector2d] = [Vector2d(2, 2), Vector2d(3, 4)]
 # simulation.run()
 
 # Obecnie
-map: IWorldMap = MyRectangularMap(10, 10)
+#map: IWorldMap = MyRectangularMap(10, 10)
+map: IWorldMap = MyInfiniteMap()
 
 simulation: Simulation = Simulation(directions, positions, map)
 simulation.run()
