@@ -122,7 +122,7 @@ class Store:
 
             cls.products = [Product(p['name'], p['quantity'], p['price']) for p in data['products']]
             
-            # Zmieniłem sposób wczytywania danych dotyczących transakcji
+            
             cls.transactions = [Transaction(Client(p['client']['surname'], p['client']['name']),
                                             Product(p['product']['name'], p['product']['quantity'], p['product']['price']),
                                             date.fromisoformat(p['date']))
@@ -147,7 +147,6 @@ class Store:
 # Utwórz listę klientów
 list_of_clients = [Client("Kowalski", "Jan"), Client("Nowak", "Anna")]
 
-# Przy założeniu, że chcesz wczytać dane z pliku na początku programu:
 Store.load_data()
 
 while True:
@@ -194,6 +193,7 @@ while True:
             Store.add_product()
         elif command.lower() == "exit":
             # Zakończ program
+            Store.save_data()
             break
         else:
             print("Nieznana komenda.")
