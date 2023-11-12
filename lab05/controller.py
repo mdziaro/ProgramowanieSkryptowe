@@ -1,24 +1,37 @@
 from typing import List
+from time import sleep
+from model.interface import IWorldMap
 from model.core import MoveDirection, Vector2d
 from model.animal import Animal
-from model.map import RectangularMap
 
 class Simulation:
-    def __init__(self, directions: List[MoveDirection], positions: List[Vector2d]):
+    def __init__(self, directions: List[MoveDirection], positions: List[Vector2d], world_map: IWorldMap):
         self.directions = directions
-        self.animals = [Animal(position) for position in positions]
-        self.map = RectangularMap(4, 4)
+        self.map = world_map
+        self.animals = []
+        for position in positions:
+            if self.map.place(Animal(position)):
+                self.animals.append(Animal(position))
+
     def run(self):
         num_animals = len(self.animals)
         current_animal_index = 0
 
         for direction in self.directions:
+            # Wypisanie aktualnego stanu mapy
+            print(self.map)
+
             current_animal = self.animals[current_animal_index]
-            current_animal.move(direction, self.map)
+            self.map.move(current_animal, direction)
             print(f"Zwierzę {current_animal_index}: {current_animal}")
+            
 
             # Przełącz do następnego zwierzęcia w cyklu
             current_animal_index = (current_animal_index + 1) % num_animals
+
+            # Uśpienie procesu na jedną sekundę
+            sleep(1)
+
 
 
 class OptionsParser:

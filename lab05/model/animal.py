@@ -26,8 +26,6 @@ class Animal:
             if validator.canMoveTo(new_position):
                 self.position = new_position
 
-    #def isInsideMap(self, position: Vector2d) -> bool:
-    #    return 0 <= position.x <= 4 and 0 <= position.y <= 4
     
     def __repr__(self) -> str:
         return str(self.orientation)

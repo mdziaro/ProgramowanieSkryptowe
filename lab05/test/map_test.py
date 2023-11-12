@@ -97,7 +97,7 @@ def test_for_map_4_4(
     rectangular_map_4_4.move(animal3, MoveDirection.LEFT)
     rectangular_map_4_4.move(animal3, MoveDirection.FORWARD)
     assert rectangular_map_4_4.objectAt(Vector2d(0, 0)) is animal1
-    assert rectangular_map_4_4.objectAt(Vector2d(1, 0)) is animal3
+    assert rectangular_map_4_4.objectAt(Vector2d(1, 1)) is animal3
     rectangular_map_4_4.move(animal2, MoveDirection.BACKWARD)
     rectangular_map_4_4.move(animal2, MoveDirection.BACKWARD)
     rectangular_map_4_4.move(animal2, MoveDirection.BACKWARD)

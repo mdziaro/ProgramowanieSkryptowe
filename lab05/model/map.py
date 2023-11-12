@@ -8,6 +8,8 @@ class RectangularMap(IMoveValidator, IWorldMap):
         self.width = width
         self.height = height
         self.animals: dict[Vector2d, Animal] = {}
+        self.upperRight = Vector2d(self.width,self.height)
+        self.lowerLeft = Vector2d(0,0)
 
     def isInsideMap(self, position: Vector2d) -> bool:
         return 0 <= position.x <= self.width and 0 <= position.y <= self.height
@@ -32,6 +34,10 @@ class RectangularMap(IMoveValidator, IWorldMap):
             new_position += animal.orientation.toUnitVector()
         elif direction == MoveDirection.BACKWARD:
             new_position -= animal.orientation.toUnitVector()
+        elif direction == MoveDirection.RIGHT:
+            new_position += animal.orientation.toUnitVector()
+        elif direction == MoveDirection.LEFT:
+            new_position -= animal.orientation.toUnitVector()
 
         if self.canMoveTo(new_position):
             self.removeAnimal(animal)
@@ -49,4 +55,4 @@ class RectangularMap(IMoveValidator, IWorldMap):
 
     def __str__(self) -> str:
         visualizer = MapVisualizer(self)
-        return visualizer.draw()
+        return visualizer.draw(self.lowerLeft, self.upperRight)

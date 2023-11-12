@@ -26,16 +26,6 @@ class MoveDirection(Enum):
     RIGHT = "r"
     LEFT = "l"
 
-    def toVector(self) -> Vector2d:
-        if self == MoveDirection.FORWARD:
-            return Vector2d(0, 1)
-        elif self == MoveDirection.BACKWARD:
-            return Vector2d(0, -1)
-        elif self == MoveDirection.RIGHT:
-            return Vector2d(1, 0)
-        elif self == MoveDirection.LEFT:
-            return Vector2d(-1, 0)
-
 class MapDirection(Enum):
     NORTH = 0
     EAST = 1
