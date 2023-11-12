@@ -79,7 +79,7 @@ class Shop:
         while True:
             try:
                 command = input("> ")
-                if not command:
+                if not command: 
                     continue
                 elif command == "warehouse":
                     self.warehouse()
