@@ -25,9 +25,6 @@ class RectangularMap(IMoveValidator, IWorldMap):
         if animal.position in self.animals:
             del self.animals[animal.position]
 
-    def validate_move(self, position: Vector2d) -> bool:
-        return self.isInsideMap(position) and not self.isPositionOccupied(position)
-
     def move(self, animal: Animal, direction: MoveDirection) -> None:
         new_position = animal.position
 
@@ -36,7 +33,7 @@ class RectangularMap(IMoveValidator, IWorldMap):
         elif direction == MoveDirection.BACKWARD:
             new_position -= animal.orientation.toUnitVector()
 
-        if self.validate_move(new_position):
+        if self.canMoveTo(new_position):
             self.removeAnimal(animal)
             animal.move(direction, self)
             self.place(animal)

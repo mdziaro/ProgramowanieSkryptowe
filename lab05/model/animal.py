@@ -12,18 +12,18 @@ class Animal:
     def isAt(self, position: Vector2d) -> bool:
         return self.position == position
 
-    def move(self, direction: MoveDirection, validator: 'IMoveValidator') -> None:
+    def move(self, direction: MoveDirection, validator: IMoveValidator) -> None:
         if direction == MoveDirection.RIGHT:
             self.orientation = self.orientation.next()
         elif direction == MoveDirection.LEFT:
             self.orientation = self.orientation.previous()
         elif direction == MoveDirection.FORWARD:
             new_position = self.position + self.orientation.toUnitVector()
-            if validator.validate_move(new_position):
+            if validator.canMoveTo(new_position):
                 self.position = new_position
         elif direction == MoveDirection.BACKWARD:
             new_position = self.position - self.orientation.toUnitVector()
-            if validator.validate_move(new_position):
+            if validator.canMoveTo(new_position):
                 self.position = new_position
 
     def isInsideMap(self, position: Vector2d) -> bool:

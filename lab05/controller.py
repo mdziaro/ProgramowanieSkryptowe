@@ -1,11 +1,13 @@
 from typing import List
 from model.core import MoveDirection, Vector2d
 from model.animal import Animal
+from model.map import RectangularMap
 
 class Simulation:
     def __init__(self, directions: List[MoveDirection], positions: List[Vector2d]):
         self.directions = directions
         self.animals = [Animal(position) for position in positions]
+        self.map = RectangularMap(self.width, self.height)
 
     def run(self):
         num_animals = len(self.animals)
@@ -13,7 +15,7 @@ class Simulation:
 
         for direction in self.directions:
             current_animal = self.animals[current_animal_index]
-            current_animal.move(direction)
+            current_animal.move(direction, self.map)
             print(f"Zwierzę {current_animal_index}: {current_animal}")
 
             # Przełącz do następnego zwierzęcia w cyklu

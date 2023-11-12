@@ -1,5 +1,5 @@
 import sys
-from model import MoveDirection, Vector2d
+from model.core import MoveDirection, Vector2d
 from controller import Simulation, OptionsParser
 
 directions: list[MoveDirection] = OptionsParser.parse(sys.argv[1:]) 
