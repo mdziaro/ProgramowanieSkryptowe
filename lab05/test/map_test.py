@@ -8,9 +8,9 @@ Opis: Testy integracyjne klas typu "IWorldMap".
 import pytest
 from model.animal import Animal
 from model.core import MoveDirection, Vector2d
-from model.map import RectangularMap
-from model.map import InfiniteMap
-        
+from model.map import RectangularMap, InfiniteMap
+from exceptions import PositionAlreadyOccupiedError
+
 @pytest.fixture
 def infinite_map():
     yield InfiniteMap()
@@ -66,10 +66,13 @@ def test_for_map_2_2(
     assert rectangular_map_2_2.place(animal1) is True
     assert rectangular_map_2_2.canMoveTo(Vector2d(0, 0)) is False
     assert rectangular_map_2_2.isOccupied(Vector2d(0, 0)) is True
-    assert rectangular_map_2_2.place(animal1) is False
-    assert rectangular_map_2_2.place(animal2) is False
+    with pytest.raises(PositionAlreadyOccupiedError):
+        assert rectangular_map_2_2.place(animal1)
+    with pytest.raises(PositionAlreadyOccupiedError):
+        assert rectangular_map_2_2.place(animal2)
     assert rectangular_map_2_2.place(animal3) is True
-    assert rectangular_map_2_2.place(animal4) is False
+    with pytest.raises(PositionAlreadyOccupiedError):
+        assert rectangular_map_2_2.place(animal4)
     assert rectangular_map_2_2.objectAt(Vector2d(0, 0)) is animal1
     rectangular_map_2_2.move(animal1, MoveDirection.FORWARD)
     assert rectangular_map_2_2.objectAt(Vector2d(0, 0)) is None
@@ -82,6 +85,7 @@ def test_for_map_2_2(
     rectangular_map_2_2.move(animal3, MoveDirection.FORWARD)
     rectangular_map_2_2.move(animal3, MoveDirection.FORWARD)
     assert rectangular_map_2_2.objectAt(Vector2d(1, 2)) is animal3
+    
 
 
 def test_for_map_4_4(
@@ -92,10 +96,12 @@ def test_for_map_4_4(
     animal4: Animal,
 ):
     assert rectangular_map_4_4.place(animal1) is True
-    assert rectangular_map_4_4.place(animal1) is False
+    with pytest.raises(PositionAlreadyOccupiedError):
+        assert rectangular_map_4_4.place(animal1)
     assert rectangular_map_4_4.place(animal2) is True
     assert rectangular_map_4_4.place(animal3) is True
-    assert rectangular_map_4_4.place(animal4) is False
+    with pytest.raises(PositionAlreadyOccupiedError):
+        assert rectangular_map_4_4.place(animal4)
     rectangular_map_4_4.move(animal3, MoveDirection.BACKWARD)
     assert rectangular_map_4_4.objectAt(Vector2d(0, 1)) is None
     assert rectangular_map_4_4.objectAt(Vector2d(1, 0)) is animal3

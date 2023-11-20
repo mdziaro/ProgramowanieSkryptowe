@@ -48,5 +48,5 @@ class OptionsParser:
             elif arg == 'l':
                 directions.append(MoveDirection.LEFT)
             else:
-                print(f"Ignoring unknown direction: {arg}")
+                raise ValueError(f'{arg} is not a legal move specification')
         return directions

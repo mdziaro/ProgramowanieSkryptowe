@@ -2,6 +2,7 @@ from model.core import Vector2d, MoveDirection
 from model.interface import IMoveValidator, IWorldMap
 from model.animal import Animal
 from view import MapVisualizer
+from exceptions import PositionAlreadyOccupiedError
 
 class WorldMap(IMoveValidator, IWorldMap):
     def __init__(self):
@@ -10,11 +11,12 @@ class WorldMap(IMoveValidator, IWorldMap):
     def isPositionOccupied(self, position: Vector2d) -> bool:
         return position in self.animals
 
-    def place(self, animal) -> bool:
+    def place(self, animal) -> any:
         if not self.isPositionOccupied(animal.position) and self.isInsideMap(animal.position):
             self.animals[animal.position] = animal
             return True
-        return False
+        else:
+            raise PositionAlreadyOccupiedError(animal.position)
 
     def removeAnimal(self, animal) -> None:
         if animal.position in self.animals:
