@@ -192,12 +192,13 @@ while True:
             if item_index < len(Store.products):
                 transaction = Store.sell_product(first_name, last_name, item_index, quantity)
                 if transaction:
-                    print(f"Sprzedano {transaction.product_or_service} do klienta {first_name} {last_name}")
+                    print(f"Sprzedano produkt {transaction.product_or_service.name} \nCena: {transaction.product_or_service.price}\nCena razem: {transaction.product_or_service.price*quantity} \nIlość: {quantity}\ndo klienta: {first_name} {last_name}")
             else:
                 service_index = item_index - len(Store.products)
                 transaction = Store.sell_service(first_name, last_name, service_index)
                 if transaction:
-                    print(f"Sprzedano {transaction.product_or_service} do klienta {first_name} {last_name}")
+                    print(f"Sprzedano usługę {transaction.product_or_service.name} \nCena: {transaction.product_or_service.price}\nCena razem: {transaction.product_or_service.price*quantity} \nIlość: {quantity}\ndo klienta: {first_name} {last_name}")
+
         else:
             print("Nieznane polecenie.")
     except EOFError:
