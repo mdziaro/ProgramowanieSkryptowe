@@ -2,6 +2,7 @@ import pytest
 from model.core import MapDirection, Vector2d, MoveDirection
 from model.animal import Animal
 from model.map import RectangularMap, RectangularMap
+from functools import partial
 
 @pytest.fixture
 def animal():

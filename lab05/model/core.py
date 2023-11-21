@@ -89,6 +89,7 @@ class MapDirection(Enum):
     SOUTH = 2
     WEST = 3
 
+
     def __str__(self) -> str:
         directions = ["↑", "→", "↓", "←"]
         return directions[self.value]
