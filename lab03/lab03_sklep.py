@@ -33,10 +33,10 @@ class Client:
     def __str__(self):
         return f"{self.name}\n" + "\n".join([f"Produkt: {product.name}, Ilość: {quantity}" for product, quantity in self.basket]) + f"\nWartość zakupionych produktów wynosi {self.calculate_total()} zł"
 
-# Utwórz listę produktów w magazynie
+# Hardcodowana lista produktów
 list_of_products_in_warehouse = [Product("Komputer", 7, 2000), Product("Laptop", 15, 5000)]
 
-# Utwórz listę klientów
+# Hardcodowana lista klientów
 list_of_clients = [Client("Jan Kowalski"), Client("Anna Nowak")]
 
 while True:
