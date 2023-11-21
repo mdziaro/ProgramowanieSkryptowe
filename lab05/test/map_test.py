@@ -7,9 +7,10 @@ Opis: Testy integracyjne klas typu "IWorldMap".
 """
 import pytest
 from model.animal import Animal
-from model.core import MoveDirection, Vector2d
+from model.core import MoveDirection, Vector2d, MapDirection
 from model.map import RectangularMap, InfiniteMap
 from exceptions import PositionAlreadyOccupiedError
+from functools import partial
 
 @pytest.fixture
 def infinite_map():
@@ -28,22 +29,22 @@ def rectangular_map_4_4():
 
 @pytest.fixture
 def animal1():
-    yield Animal(Vector2d(0, 0))
+    yield Animal(Vector2d(0, 0), MapDirection.NORTH)
 
 
 @pytest.fixture
 def animal2():
-    yield Animal(Vector2d(3, 3))
+    yield Animal(Vector2d(3, 3), MapDirection.NORTH)
 
 
 @pytest.fixture
 def animal3():
-    yield Animal(Vector2d(1, 1))
+    yield Animal(Vector2d(1, 1), MapDirection.NORTH)
 
 
 @pytest.fixture
 def animal4():
-    yield Animal(Vector2d(-1, -2))
+    yield Animal(Vector2d(-1, -2), MapDirection.NORTH)
 
 
 def test_for_map_2_2(
@@ -115,6 +116,9 @@ def test_for_map_4_4(
     assert rectangular_map_4_4.objectAt(Vector2d(3, 0)) is animal2
     rectangular_map_4_4.move(animal2, MoveDirection.BACKWARD)
     assert rectangular_map_4_4.objectAt(Vector2d(3, 0)) is animal2
+    
+
+
     
 def test_for_infinite_map(
     infinite_map: InfiniteMap,

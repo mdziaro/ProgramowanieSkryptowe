@@ -31,22 +31,17 @@ class Simulation:
 
             # Uśpienie procesu na jedną sekundę
             sleep(1)
-
+        print(self.map)
 
 
 class OptionsParser:
     @staticmethod
     def parse(args: List[str]) -> List[MoveDirection]:
-        directions = []
-        for arg in args:
-            if arg == 'f':
-                directions.append(MoveDirection.FORWARD)
-            elif arg == 'b':
-                directions.append(MoveDirection.BACKWARD)
-            elif arg == 'r':
-                directions.append(MoveDirection.RIGHT)
-            elif arg == 'l':
-                directions.append(MoveDirection.LEFT)
+        def map_to_direction(arg: str) -> MoveDirection:
+            direction_mapping = {'f': MoveDirection.FORWARD, 'b': MoveDirection.BACKWARD, 'r': MoveDirection.RIGHT, 'l': MoveDirection.LEFT}
+            if arg in direction_mapping:
+                return direction_mapping[arg]
             else:
                 raise ValueError(f'{arg} is not a legal move specification')
-        return directions
+
+        return list(map(map_to_direction, args))

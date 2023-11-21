@@ -10,6 +10,7 @@ import pytest
 from model.core import Vector2d, MoveDirection, MapDirection
 from controller import Simulation, OptionsParser
 from model.map import RectangularMap
+from functools import partial
 
 @pytest.fixture
 def rectangular_map():

@@ -47,19 +47,18 @@ class WorldMap(IMoveValidator, IWorldMap):
             self.removeAnimal(animal)
             animal.move(direction, self)
             self.place(animal)
-
+    
     
 class RectangularMap(WorldMap):
     def __init__(self, width: int, height: int):
         super().__init__()
         self.width = width
         self.height = height
-        self.upperRight = Vector2d(self.width,self.height)
-        self.lowerLeft = Vector2d(0,0)
-
+        self.upperRight = Vector2d(self.width, self.height)
+        self.lowerLeft = Vector2d(0, 0)
 
     def isInsideMap(self, position: Vector2d) -> bool:
-        return 0 <= position.x <= self.width and 0 <= position.y <= self.height
+        return 0 <= position.get_x() <= self.width and 0 <= position.get_y() <= self.height
 
     
     def __str__(self) -> str:
