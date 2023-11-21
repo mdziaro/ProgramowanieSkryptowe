@@ -2,47 +2,12 @@ from enum import Enum
 from functools import wraps
 
 
-def log(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        instance = args[0] if args else None
-        method_name = f"{instance.__class__.__name__}.{func.__name__}" if instance else func.__name__
-
-        if instance and isinstance(instance, Vector2d):
-            arguments = instance.x, instance.y
-        else:
-            arguments = args[1:]
-
-        print(f"Nazwa kwalifikowana: {method_name}")
-        print(f"Argumenty: {arguments}")
-        result = func(*args, **kwargs)
-        return result
-
-    return wrapper
-
-def log_to(file):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            instance = args[0] if args else None
-            method_name = f"{instance.__class__.__name__}.{func.__name__}" if instance else func.__name__
-            arguments = args[1:]
-            log_entry = f"{method_name} | {arguments}\n"
-            with open(f"{file}.txt", "a") as log_file:
-                log_file.write(log_entry)
-            result = func(*args, **kwargs)
-            return result
-
-        return wrapper
-
-    return decorator
-
-
 class Vector2d:
     def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
 
+    
     def __add__(self, other: 'Vector2d') -> 'Vector2d':
         return Vector2d(self.x + other.x, self.y + other.y)
 
@@ -57,25 +22,50 @@ class Vector2d:
     def __hash__(self):
         return hash((self.x, self.y))
     
-    def __init__(self, x: int, y: int):
-        self._x = x
-        self._y = y
+    def log(fn):
+        def log_helper(*args, **kwargs):
+            print("Nazwa kwalifikowana: Vector2d.{}".format(fn.__name__))
+            print("Argumenty: {}".format(" ".join([arg.__str__() for arg in args])))
+            return fn(*args, **kwargs)
 
-    @property
-    def x(self) -> int:
+        return log_helper
+    
+    def log_to(file: "str"):
+        def log_decorator(fn):
+            def log_helper(*args, **kwargs):
+                with open(file+".txt", "a+") as f:
+                    f.write("Vector2d.{} | {}\n".format(fn.__name__, " ".join([arg.__str__() for arg in args])))
+                return fn(*args, **kwargs)
+            return log_helper
+        return log_decorator
+
+    def get_x(self) -> int:
         return self._x
-
-    @x.setter
-    def x(self, value):
-        self._x = value
+    
+    def get_y(self) -> int:
+        return self._y
+    
+    @property
+    @log_to(file=".logs")
+    def x(self) -> int:
+        return self.get_x() 
 
     @property
     def y(self) -> int:
-        return self._y
-
-    @y.setter
-    def y(self, value):
-        self._y = value
+        return self.get_y()
+    
+    def __str__(self) -> str:
+        return self.__repr__()
+    
+    def __repr__(self) -> str:
+        return "({},{})".format(self._x, self._y)
+    
+    @log_to(file=".logs")
+    def add(self, other_Vector2d: 'Vector2d') -> 'Vector2d':
+        return Vector2d(self._x + other_Vector2d.get_x(), self._y + other_Vector2d.get_y())
+    
+    def subtract(self, other_Vector2d: 'Vector2d') -> 'Vector2d':
+        return Vector2d(self._x - other_Vector2d.get_x(), self._y - other_Vector2d.get_y())
 
 class MoveDirection(Enum):
     FORWARD = "f"
