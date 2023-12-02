@@ -1,0 +1,1 @@
+Repository I'm using to store and share my homework for Scripting Programming subject. Code written here is not representative of my abilites, as the deadlines were tight and the exercises' goals were often confusing and vague. Planning to refactor it someday.
